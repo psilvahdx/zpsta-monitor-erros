@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZPSGW_MONITORING_SRV" xml:lang="pt" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="ZPSTA_MON_ERROR" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="id"/>
+                    <PropertyRef Name="codigo_atena"/>
+                    <PropertyRef Name="hora"/>
+                    <PropertyRef Name="data"/>
+                </Key>
+                <Property Name="id" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="ID"/>
+                <Property Name="codigo_atena" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="CODIGO_ATENA"/>
+                <Property Name="hora" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="HORA"/>
+                <Property Name="data" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="DATA"/>
+                <Property Name="flag" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="FLAG"/>
+                <Property Name="tableName" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="TABLENAME"/>
+                <Property Name="field" Type="Edm.String" MaxLength="120" sap:unicode="false" sap:label="FIELD"/>
+                <Property Name="erro" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="ERRO"/>
+                <Property Name="operacao" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="OPERACAO"/>
+                <Property Name="codigo_empresa" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="CODIGO_EMPRESA"/>
+                <Property Name="codigo_evento_negocio" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="CODIGO_EVENTO_NEGOCIO"/>
+                <Property Name="codigo_conector" Type="Edm.Decimal" Precision="28" Scale="0" sap:unicode="false" sap:label="CODIGO_CONECTOR"/>
+                <Property Name="status" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="STATUS"/>
+            </EntityType>
+
+            <EntityType Name="ZPSTA_MON_EMP" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="id_empresa"/>
+                </Key>
+                <Property Name="id_empresa" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="ID_EMPRESA" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="codigo_empresa_desc" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="CODIGO_EMPRESA_DESC" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+
+            <EntityType Name="ZPSTA_MON_EVE" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="id_evento_negocio"/>
+                </Key>
+                <Property Name="id_evento_negocio" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="ID_EVENTO_NEGOCIO"/>
+                <Property Name="codigo_evento_negocio_desc" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="CODIGO_EVENTO_NEGOCIO_DESC"/>
+            </EntityType>
+
+            <EntityType Name="ZPSTA_MON_CONECT" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="id_conector"/>
+                </Key>
+                <Property Name="id_conector" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="ID_CONECTOR" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="codigo_conector_desc" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="CODIGO_CONECTOR_DESC" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+
+            <EntityType Name="ZPSTA_MON_STATUS" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="id_status"/>
+                </Key>
+                <Property Name="id_status" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="ID_STATUS"/>
+                <Property Name="status_desc" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="STATUS_DESC"/>
+            </EntityType>
+
+            <EntityContainer Name="ZPSGW_MONITORING_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="OZPSTA_MON_ERROR" EntityType="ZPSGW_MONITORING_SRV.ZPSTA_MON_ERROR" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_MON_EMP" EntityType="ZPSGW_MONITORING_SRV.ZPSTA_MON_EMP" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_MON_EVE" EntityType="ZPSGW_MONITORING_SRV.ZPSTA_MON_EVE" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_MON_CONECT" EntityType="ZPSGW_MONITORING_SRV.ZPSTA_MON_CONECT" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="OZPSTA_MON_STATUS" EntityType="ZPSGW_MONITORING_SRV.ZPSTA_MON_STATUS" sap:searchable="true" sap:content-version="1"/>
+            </EntityContainer>
+
+            <atom:link rel="self" href="http://li5762.portoseguro.brasil:8200/sap/opu/odata/sap/ZPSGW_MONITORING_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://li5762.portoseguro.brasil:8200/sap/opu/odata/sap/ZPSGW_MONITORING_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,109 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/xsodata/odata_monitoring.xsodata/$metadata">
+		<edmx:Include Alias="Metadata" Namespace="ZPSGW_MONITORING_SRV"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="portoseguro.zpstamonitor.annotation.ZPSTA_MON_ERROR">
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR">
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>codigo_empresa</PropertyPath>
+						<PropertyPath>codigo_evento_negocio</PropertyPath>
+						<PropertyPath>data</PropertyPath>
+						<PropertyPath>status</PropertyPath>
+						<PropertyPath>codigo_conector</PropertyPath>
+						<PropertyPath>codigo_atena</PropertyPath>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="id"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="codigo_atena"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="data"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="hora"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="flag"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="tableName"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="field"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="erro"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="operacao"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="codigo_conector"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="status"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="codigo_empresa"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="codigo_evento_negocio"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/id">
+				<Annotation Term="Common.Label" String="{@i18n&gt;ID}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/codigo_atena">
+				<Annotation Term="Common.Label" String="{@i18n&gt;COD_ATENA}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/hora">
+				<Annotation Term="Common.Label" String="{@i18n&gt;HORA}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/data">
+				<Annotation Term="Common.Label" String="{@i18n&gt;DATA}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/flag">
+				<Annotation Term="Common.Label" String="{@i18n&gt;FLAG}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/tableName">
+				<Annotation Term="Common.Label" String="{@i18n&gt;TABLE_NAME}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/field">
+				<Annotation Term="Common.Label" String="{@i18n&gt;FIELD}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/erro">
+				<Annotation Term="Common.Label" String="{@i18n&gt;ERRO}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/operacao">
+				<Annotation Term="Common.Label" String="{@i18n&gt;OPERACAO}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/codigo_empresa">
+				<Annotation Term="Common.Label" String="{@i18n&gt;CODIGO_EMPRESA}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/codigo_evento_negocio">
+				<Annotation Term="Common.Label" String="{@i18n&gt;COD_EVENTO_NEGOCIO}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/codigo_conector">
+				<Annotation Term="Common.Label" String="{@i18n&gt;CODCONECTOR}"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPSTA_MON_ERROR/status">
+				<Annotation Term="Common.Label" String="{@i18n&gt;STATUS}"/>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

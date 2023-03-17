@@ -1,0 +1,74 @@
+<mvc:View controllerName="portoseguro.zpstamonitor.controller.Main"
+    xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:core="sap.ui.core"
+    xmlns:f="sap.f" displayBlock="true" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <Page id="_IDGenPage1" title="{i18n>title}">
+        <f:DynamicPage id="dynamicPageId" showFooter="true">
+            <f:header>
+                <f:DynamicPageHeader id="_IDGenDynamicPageHeader1" pinnable="true">
+                    <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="OZPSTA_MON_ERROR" persistencyKey="SmartFilter_Explored">
+                        <smartFilterBar:controlConfiguration>
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration1" key="codigo_empresa" visibleInAdvancedArea="true">
+                                <smartFilterBar:customControl>
+                                    <MultiComboBox id="selCodEmpresa" items="{path:'/OZPSTA_MON_EMP',sorter:{path:'id_empresa', descending:false}}">
+                                        <core:Item id="_IDGenItem1" key="{id_empresa}" text="{codigo_empresa_desc}"/>
+                                    </MultiComboBox>
+                                </smartFilterBar:customControl>
+                            </smartFilterBar:ControlConfiguration>
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration2" key="codigo_evento_negocio" visibleInAdvancedArea="true">
+                                <smartFilterBar:customControl>
+                                    <MultiComboBox id="selCodEventoNegocio" items="{path:'/OZPSTA_MON_EVE' ,sorter:{path:'id_evento_negocio', descending:false}}">
+                                        <core:Item id="_IDGenItem2" key="{id_evento_negocio}" text="{codigo_evento_negocio_desc}"/>
+                                    </MultiComboBox>
+                                </smartFilterBar:customControl>
+                            </smartFilterBar:ControlConfiguration>
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration3" key="data"></smartFilterBar:ControlConfiguration>
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration4" key="status" visibleInAdvancedArea="true">
+                                <smartFilterBar:customControl>
+                                    <MultiComboBox id="selStatus" items="{path:'/OZPSTA_MON_STATUS',sorter:{path:'id_status', descending:false}}">
+                                        <core:Item id="_IDGenItem3" key="{id_status}" text="{status_desc}"/>
+                                    </MultiComboBox>
+                                </smartFilterBar:customControl>
+                            </smartFilterBar:ControlConfiguration>
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration5" key="codigo_conector" visibleInAdvancedArea="true">
+                                <smartFilterBar:customControl>
+                                    <MultiComboBox id="selCodConector" items="{path:'/OZPSTA_MON_CONECT',sorter:{path:'id_conector', descending:false}}">
+                                        <core:Item id="_IDGenItem4" key="{id_conector}" text="{codigo_conector_desc}"/>
+                                    </MultiComboBox>
+                                </smartFilterBar:customControl>
+                            </smartFilterBar:ControlConfiguration>
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration6" key="codigo_atena"></smartFilterBar:ControlConfiguration>
+                        </smartFilterBar:controlConfiguration>
+                    </smartFilterBar:SmartFilterBar>
+                </f:DynamicPageHeader>
+            </f:header>
+            <f:content>
+                <!-- Atenção: Sempre que o serviço OData for alterado é necessário ajustar o arquivo 
+                annotation.xml, recomenod utilizar o editor visual, removendo ou adicionando novos campos. 
+                Este arquivo de define a estrutura da tabela.
+
+                Para ser possível alterar corretamente é necessário compiar os metadados do servico para a pasta 
+                localService/metadata.xml.
+                Para isto, Execute a chamada do serviço Odata com a tag $metadata /xsodata/odata_monitoring.xsodata/$metadata
+                e copie o conteúdo do XML gerado para o localService/metadata.xml 
+                Isto é necessário devido ao uso dos controles smartFilter e SmartTable que são renderizados com base nas anotações OData
+                -->
+                <smartTable:SmartTable entitySet="OZPSTA_MON_ERROR" smartFilterId="smartFilterBar" editable="false" tableType="Table"
+                    useExportToExcel="true" useVariantManagement="false" header="Erros" showRowCount="true" useTablePersonalisation="false"
+                    enableAutoBinding="true" class="sapUiResponsiveContentPadding" id="tblError" showFullScreenButton="true" dataReceived=".onDataReceived"
+                    beforeRebindTable="onBeforeRebindTable">
+                    <l:VerticalLayout class="sapUiContentPadding" id="oVerticalContent" width="100%"></l:VerticalLayout>
+                    <smartTable:layoutData>
+                        <FlexItemData id="_IDGenFlexItemData1" growFactor="1" baseSize="0%"/>
+                    </smartTable:layoutData>
+                </smartTable:SmartTable>
+            </f:content>
+            <f:footer>
+                <OverflowToolbar id="_IDGenOverflowToolbar1">
+                    <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+                    <Button id="_IDGenButton1" type="Emphasized" text="{i18n>processar}" press=".onApproveDialogPress"/>
+                </OverflowToolbar>
+            </f:footer>
+        </f:DynamicPage>
+    </Page>
+</mvc:View>
