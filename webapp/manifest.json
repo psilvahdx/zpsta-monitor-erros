@@ -27,9 +27,9 @@
             },
             "annotation": {
 				"type": "ODataAnnotation",
-				"uri": "annotation.xml",
+				"uri": "annotations/annotation.xml",
 				"settings": {
-					"localUri": "annotation.xml"
+					"localUri": "annotations/annotation.xml"
 				}
 			}
         },
@@ -94,7 +94,12 @@
             "": {
                 "dataSource": "mainService",
                 "preload": true,
-                "settings": {}
+                "settings": {
+                    "defaultOperationMode": "Server",
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Request",
+					"useBatch": false
+                }
             },
             "@i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
@@ -121,7 +126,7 @@
             "routes": [
                 {
                     "name": "RouteMain",
-                    "pattern": "RouteMain",
+                    "pattern": ":?query:",
                     "target": [
                         "TargetMain"
                     ]
@@ -138,7 +143,7 @@
             }
         },
         "rootView": {
-            "viewName": "portoseguro.zpstamonitor.view.Main",
+            "viewName": "portoseguro.zpstamonitor.view.App",
             "type": "XML",
             "async": true,
             "id": "App"

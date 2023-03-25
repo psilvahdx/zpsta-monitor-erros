@@ -1,5 +1,5 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
-	<edmx:Reference Uri="/xsodata/odata_monitoring.xsodata/$metadata">
+	<edmx:Reference Uri="/sap/opu/odata/sap/ZPSGW_MONITORING_SRV/$metadata">
 		<edmx:Include Alias="Metadata" Namespace="ZPSGW_MONITORING_SRV"/>
 	</edmx:Reference>
 	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">

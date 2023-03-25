@@ -1,6 +1,6 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-	"sap/m/MessageToast",
+    "portoseguro/zpstamonitor/controller/BaseController",
+	"sap/m/MessageBox",
 	"sap/ui/core/syncStyleClass",
 	"sap/ui/core/Fragment",
 	"sap/m/Dialog",
@@ -14,12 +14,11 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, MessageToast, syncStyleClass, Fragment, Dialog, DialogType, Button, ButtonType, Text, Filter, FilterOperator) {
+    function (BaseController, MessageBox, syncStyleClass, Fragment, Dialog, DialogType, Button, ButtonType, Text, Filter, FilterOperator) {
         "use strict";
 
-        return Controller.extend("portoseguro.zpstamonitor.controller.Main", {
-            // onInit: function () {
-            // },
+        return BaseController.extend("portoseguro.zpstamonitor.controller.Main", {
+          
 
             _getDialog: function () {
                 if (!this._oDialog) {
@@ -31,21 +30,19 @@ sap.ui.define([
     
             onInit: function () {
                 this.getView().addStyleClass("sapUiSizeCompact");
+              
                 this.getOwnerComponent().getRouter().getRoute("RouteMain").attachPatternMatched(this._onObjectMatched, this);
             },
     
             _onObjectMatched: function (oEvent) {
     
                 var smartFilterBar = this.getView().byId("smartFilterBar");
+                this.byId('smartFilterBar-btnGo').setText(this.geti18NText("FILTER_BAR_GO")); 
                 smartFilterBar.clear();
                 smartFilterBar.fireSearch();
-                //this.onDataReceived();
-            },
-    
-            getResourceBundle: function () {
-                return this.getOwnerComponent().getModel("i18n").getResourceBundle();
-            },
-    
+              
+            },    
+           
             closeDialog: function () {
                 this._getDialog().close();
             },
@@ -229,9 +226,9 @@ sap.ui.define([
                     }
     
                 } else {
-                    let oBundle = this.getResourceBundle();
-                    let sMsg = oBundle.getText("MSGSEMREGISTRO");
-                    sap.m.MessageBox.information(sMsg);
+                    
+                    let sMsg = this.geti18NText("MSGSEMREGISTRO");
+                    MessageBox.information(sMsg);
                 }
             },
     
@@ -240,24 +237,24 @@ sap.ui.define([
                 if (oError.statusCode === 500 || oError.statusCode === 400 || oError.statusCode === "500" || oError.statusCode === "400") {
                     var errorRes = JSON.parse(oError.responseText);
                     if (!errorRes.error.innererror) {
-                        sap.m.MessageBox.alert(errorRes.error.message.value);
+                        MessageBox.alert(errorRes.error.message.value);
                     } else {
                         if (!errorRes.error.innererror.message) {
-                            sap.m.MessageBox.alert(errorRes.error.innererror.toString());
+                            MessageBox.alert(errorRes.error.innererror.toString());
                         } else {
-                            sap.m.MessageBox.alert(errorRes.error.innererror.message);
+                            MessageBox.alert(errorRes.error.innererror.message);
                         }
                     }
                     return;
                 } else {
-                    sap.m.MessageBox.alert(oError.responseText);
+                    MessageBox.alert(oError.responseText);
                     return;
                 }
     
             },
     
             onSucessCall: function (oSucess) {
-                sap.m.MessageBox.alert(oSucess.responseText);
+                MessageBox.alert(oSucess.responseText);
             },
     
             onDataReceived: function () {
