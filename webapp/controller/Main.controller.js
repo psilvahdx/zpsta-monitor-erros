@@ -212,14 +212,14 @@ sap.ui.define([
                     } else {
                         this._getDialog().close();
                         if (!checkStatus) {
-                            sap.m.MessageBox.information(
+                            MessageBox.information(
                                 'ERRO: Para REPROCESSO acima de 50 registros, favor definir o filtro para "status" e "codigo_empresa" ou "codigo_evento_negocio" e usar o "check all"'
                             );
                         } else if (reprocessData.length >= 0) {
-                            sap.m.MessageBox.information(
+                            MessageBox.information(
                                 'ERRO: Somente os status Roteirizado_erro, Item_erro ou ERRO_PROCESS_CHAIN poderá ser REPROCESSADOS.');
                         } else {
-                            sap.m.MessageBox.information(
+                            MessageBox.information(
                                 'ERRO: Para REPROCESSO acima de 50 registros, favor definir o filtro para "status" e "codigo_empresa" ou "codigo_evento_negocio" e usar o "check all"'
                             );
                         }
