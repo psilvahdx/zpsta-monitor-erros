@@ -31,7 +31,16 @@
 				"settings": {
 					"localUri": "annotations/annotation.xml"
 				}
-			}
+			},
+            "reprocService": {
+                "uri": "/sap/opu/odata/sap/ZPSGW_MONITORING_SRV/OREPROCESSAR/",
+                "type": "OData",
+                "settings": {
+                    "annotations": ["annotation"],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            }
         },
         "crossNavigation": {
             "inbounds": {
@@ -104,7 +113,12 @@
             "@i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"uri": "i18n/i18n.properties"
-			}
+			},
+            "reprocModel": {
+                "dataSource": "reprocService",
+                "preload": true,
+                "settings": {}
+            }
         },
         "resources": {
             "css": [

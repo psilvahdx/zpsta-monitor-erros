@@ -188,14 +188,10 @@ sap.ui.define([
                         var that = this;
     
                         var json_string = JSON.stringify(reprocessData);
-                        var res_obj_json = `{"data":${json_string}}`;
-    
-                        jQuery.ajax({
-                            url: url,
-                            method: "POST",
-                            data: res_obj_json,
-                            contentType: "application/json",
-                            //dataType: "json",
+                        var res_obj_json = {jsonStr: json_string};
+                        var oModel = this.getView().getModel();
+
+                        oModel.create("/OREPROCESSAR", res_obj_json, {
                             success: function (oSucess) {
                                 that.closeDialog();
                                 //that.onSucessCall(oSucess);
@@ -209,6 +205,26 @@ sap.ui.define([
                             },
                             timeout: 600000 //Timeout de 10 minutos
                         });
+    
+                        // jQuery.ajax({
+                        //     url: url,
+                        //     method: "POST",
+                        //     data: res_obj_json,
+                        //     contentType: "application/json",
+                        //     //dataType: "json",
+                        //     success: function (oSucess) {
+                        //         that.closeDialog();
+                        //         //that.onSucessCall(oSucess);
+                        //         tblError.getModel().refresh();
+                        //         tblError.clearSelection();
+                        //     },
+                        //     error: function (oError) {
+                        //         that.closeDialog();
+                        //         that.onErrorCall(oError);
+                        //         tblError.getModel().refresh();
+                        //     },
+                        //     timeout: 600000 //Timeout de 10 minutos
+                        // });
                     } else {
                         this._getDialog().close();
                         if (!checkStatus) {
