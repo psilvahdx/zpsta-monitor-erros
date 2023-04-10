@@ -1,6 +1,7 @@
 sap.ui.define([
     "portoseguro/zpstamonitor/controller/BaseController",
 	"sap/m/MessageBox",
+    "sap/m/MessageToast",
 	"sap/ui/core/syncStyleClass",
 	"sap/ui/core/Fragment",
 	"sap/m/Dialog",
@@ -14,7 +15,7 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, MessageBox, syncStyleClass, Fragment, Dialog, DialogType, Button, ButtonType, Text, Filter, FilterOperator) {
+    function (BaseController, MessageBox, MessageToast, syncStyleClass, Fragment, Dialog, DialogType, Button, ButtonType, Text, Filter, FilterOperator) {
         "use strict";
 
         return BaseController.extend("portoseguro.zpstamonitor.controller.Main", {
@@ -378,6 +379,118 @@ sap.ui.define([
                 aSelectedCodConector.forEach(element => {
                     mBindingParams.filters.push(new Filter("codigo_conector", FilterOperator.EQ, element.getKey()));
                 });
+            },
+
+//Reprocessamento em massa
+            onUploadMass: function(oEvent){
+                this.openUploadMassDialog();
+            },
+
+            openUploadMassDialog: function(){
+                var dialogMass = this._getReprocMassDialog("portoseguro.zpstamonitor.view.dialogs.ReprocMassDialog");
+                dialogMass.open();
+            },
+
+            _getReprocMassDialog: function (fragmentDialog) {
+                if (!this._oReprocMassDialog) {
+                    this._oReprocMassDialog = sap.ui.xmlfragment("frmDeleteMassDialog",fragmentDialog, this);
+                    //this._oDeleteMassDialog.addStyleClass("sapUiSizeCompact");
+                    this.getView().addDependent(this._oReprocMassDialog);
+                }
+                return this._oReprocMassDialog;
+            },
+
+            onMassCancel: function(oEvent){
+                var dialogMass = this._getReprocMassDialog("portoseguro.zpstamonitor.view.dialogs.ReprocMassDialog");
+                var oFileUploader = sap.ui.core.Fragment.byId("frmDeleteMassDialog","delFileUploader");
+                var obtnImportFile = sap.ui.core.Fragment.byId("frmDeleteMassDialog","btnImpFileDelMass");
+                oFileUploader.setValue("");
+                obtnImportFile.setVisible(false);
+                dialogMass.close();
+            },
+
+            handleUploadDelMassValueChange: function (oEvent) {
+				var obtnImportFile = sap.ui.core.Fragment.byId("frmDeleteMassDialog","btnImpFileDelMass");
+				obtnImportFile.setVisible(true);
+
+			},
+
+            handleUploadDelMassPress: function (oEvent) {
+				var that = this,
+                    oFileUploader = sap.ui.core.Fragment.byId("frmDeleteMassDialog","delFileUploader");
+				if (!oFileUploader.getValue()) {
+					MessageToast.show("Nenhum arquivo selecionado");
+					return;
+				}
+
+                var sMessage = that.geti18NText("confirma_reproc_em_massa");
+                sap.m.MessageBox.information(
+                    sMessage,
+                    {
+                        actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+                        onClose: function (sAction) {
+                            if (sAction === sap.m.MessageBox.Action.YES) {
+                                
+                                oFileUploader.addHeaderParameter(
+                                    new sap.ui.unified.FileUploaderParameter({
+                                        name: "X-CSRF-Token",
+                                        value: that.getView().getModel().getSecurityToken()
+                                    })
+                                );
+                
+                                oFileUploader.addHeaderParameter(
+                                    new sap.ui.unified.FileUploaderParameter({
+                                        name: "x-custom-app-id",
+                                        value: "REPROCESSAR"
+                                    })
+                                );
+                
+                                oFileUploader.setSendXHR(true);
+                
+                                oFileUploader.upload();
+                                // let  oViewModel =  that.getView().getModel("cfgTTViewModel");
+                                //     oViewModel.setProperty("/busy",true);
+
+                            }
+                        }
+                    }
+                );
+			},
+
+            handleUploadDeleteComplete: function(oEvent){
+                var sResponseStatus = oEvent.getParameter("status");
+				var obtnImportFile = sap.ui.core.Fragment.byId("frmDeleteMassDialog","btnImpFileDelMass");
+				var oFileUploader = sap.ui.core.Fragment.byId("frmDeleteMassDialog","delFileUploader");
+                // let  oViewModel = this.getView().getModel("cfgTTViewModel");
+                    
+
+				if (sResponseStatus === 200 || sResponseStatus === 201) {
+					
+                    var oModel = this.getView().getModel();
+					MessageToast.show("Registros Reprocessados com Sucesso!");
+					
+                    this.resetControlFileDelMass(oFileUploader,obtnImportFile);
+					oModel.refresh();
+                    this.onMassCancel();
+				} 
+                else {
+                    let sResponseRaw = oEvent.getParameter("responseRaw");
+                    let oJsonResponse = this.parseXmlToJson(sResponseRaw);
+
+                    if(oJsonResponse && oJsonResponse.message){
+                        sap.m.MessageBox.error(oJsonResponse.message);                        
+                        this.resetControlFileDelMass(oFileUploader,obtnImportFile);                        
+                    }else{
+                        sap.m.MessageBox.error("Erro ao Importar arquivo");                        
+                        this.resetControlFileDelMass(oFileUploader,obtnImportFile);                        
+                    }
+                }
+            },
+
+            resetControlFileDelMass: function (oFileUploader, obtnImportFile){
+                    oFileUploader.setValue("");
+					obtnImportFile.setVisible(false);
+                    // oViewModel.setProperty("/busy",false);
             }
         });
     });

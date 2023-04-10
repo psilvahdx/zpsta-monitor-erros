@@ -67,6 +67,7 @@
                 <OverflowToolbar id="_IDGenOverflowToolbar1">
                     <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
                     <Button id="_IDGenButton1" type="Emphasized" text="{i18n>processar}" press=".onApproveDialogPress"/>
+                    <Button xmlns="sap.m" id="btnDelMass" type="Ghost" icon="sap-icon://add-document" text="{i18n>btn_reproc_massa}" press=".onUploadMass"/>
                 </OverflowToolbar>
             </f:footer>
         </f:DynamicPage>

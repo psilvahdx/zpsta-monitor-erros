@@ -58,6 +58,17 @@ function (Controller, formatter) {
             } else {
                 return null;
             }
+        },
+
+        parseXmlToJson: function (strXML) {
+            const jsonObj = {};
+            for (const res of strXML.matchAll(/(?:<(\w*)(?:\s[^>]*)*>)((?:(?!<\1).)*)(?:<\/\1>)|<(\w*)(?:\s*)*\/>/gm)) {
+                const key = res[1] || res[3];
+                const value = res[2] && this.parseXmlToJson(res[2]);
+                jsonObj[key] = ((value && Object.keys(value).length) ? value : res[2]) || null;
+        
+            }
+            return jsonObj;
         }
     });
 });
