@@ -11,9 +11,9 @@
 				showCloseButton="false"
 				class="sapUiTinyMarginBottom">
 			</MessageStrip>
-			<!-- <Link
+			<Link id="_IDGenLink1"
 				text="{i18n>baixar_template}"
-				press="handleLinkPress" /> -->
+				press="handleLinkPress" />
 		 </VBox>
 		 <VBox id="vbBody" class="sapUiSmallMargin">
 		 

@@ -491,6 +491,15 @@ sap.ui.define([
                     oFileUploader.setValue("");
 					obtnImportFile.setVisible(false);
                     // oViewModel.setProperty("/busy",false);
+            },
+
+            handleLinkPress: function (){
+                // sap.m.URLHelper.redirect("/templates/template_reproc_mass.xlsx", true);
+                var e = "/sap/opu/odata/sap/ZPSGW_MONITORING_SRV/OFileSet('template_reproc_mass.xlsx')/$value";
+                var o = new sap.m.UploadCollectionItem;
+                o.setUrl(e);
+                o.setMimeType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                o.download(false)
             }
         });
     });
