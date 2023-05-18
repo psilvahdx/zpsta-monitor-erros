@@ -10,12 +10,13 @@ sap.ui.define([
 	"sap/m/ButtonType",
 	"sap/m/Text",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
+	"sap/ui/model/FilterOperator",
+    "sap/m/PDFViewer"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, MessageBox, MessageToast, syncStyleClass, Fragment, Dialog, DialogType, Button, ButtonType, Text, Filter, FilterOperator) {
+    function (BaseController, MessageBox, MessageToast, syncStyleClass, Fragment, Dialog, DialogType, Button, ButtonType, Text, Filter, FilterOperator, PDFViewer) {
         "use strict";
 
         return BaseController.extend("portoseguro.zpstamonitor.controller.Main", {
@@ -33,6 +34,11 @@ sap.ui.define([
                 this.getView().addStyleClass("sapUiSizeCompact");
               
                 this.getOwnerComponent().getRouter().getRoute("RouteMain").attachPatternMatched(this._onObjectMatched, this);
+
+                // PDFViewer
+                this._pdfViewer = new PDFViewer();
+                this.getView().addDependent(this._pdfViewer);
+                
             },
     
             _onObjectMatched: function (oEvent) {
@@ -500,6 +506,17 @@ sap.ui.define([
                 o.setUrl(e);
                 o.setMimeType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
                 o.download(false)
+            },
+
+            onPDFViewer: function (oEvent) {
+                var oSample1Model = new sap.ui.model.json.JSONModel({                    
+                    Source: "/sap/opu/odata/sap/ZPSGW_MONITORING_SRV/OFileSet('manual_monitor.pdf')/$value"
+                });
+
+                var sSource = oSample1Model.getData().Source;
+                this._pdfViewer.setSource(sSource);
+                this._pdfViewer.setTitle("Manual do usuario");
+                this._pdfViewer.open();
             }
         });
     });
